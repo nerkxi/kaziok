@@ -2,33 +2,25 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>казино картеля</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Три в ряд – Казино</title>
     <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
         body {
             font-family: Arial, sans-serif;
             background: #1a1a2e;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
             color: white;
-            touch-action: manipulation;
         }
         
         .game-container {
-            width: 100%;
-            max-width: 320px;
+            width: 320px;
             background: linear-gradient(135deg, #16213e, #0f3460);
             border-radius: 15px;
-            padding: 15px;
+            padding: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             text-align: center;
             border: 2px solid #e94560;
@@ -36,30 +28,28 @@
         
         h1 {
             color: #e94560;
-            font-size: 22px;
-            margin: 10px 0;
+            font-size: 24px;
+            margin-bottom: 20px;
         }
         
         .slots {
             display: flex;
             justify-content: space-around;
-            margin: 15px 0;
-            gap: 10px;
+            margin: 20px 0;
         }
         
         .slot {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: #0f3460;
             border: 2px solid #e94560;
             border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
             color: gold;
-            flex-shrink: 0;
         }
         
         .spin-btn {
@@ -67,14 +57,12 @@
             color: white;
             border: none;
             padding: 12px 25px;
-            font-size: 16px;
+            font-size: 18px;
             border-radius: 50px;
             cursor: pointer;
-            margin: 10px 0;
+            margin-top: 10px;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
-            width: 100%;
-            max-width: 200px;
         }
         
         .spin-btn:hover {
@@ -85,12 +73,10 @@
         .spin-btn:disabled {
             background: #555;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
         
         .attempts {
-            margin: 10px 0;
+            margin-top: 15px;
             font-size: 14px;
             color: #ccc;
         }
@@ -106,42 +92,25 @@
             justify-content: center;
             align-items: center;
             z-index: 100;
-            padding: 15px;
         }
         
         .modal-content {
             background: linear-gradient(135deg, #16213e, #0f3460);
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
             text-align: center;
-            width: 100%;
             max-width: 300px;
             border: 2px solid #e94560;
         }
         
-        .modal-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .modal-btn {
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            border: none;
-        }
-        
-        .deposit-btn {
+        .close-modal {
             background: #e94560;
             color: white;
-        }
-        
-        .close-btn {
-            background: #333;
-            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
         }
         
         .win-animation {
@@ -153,24 +122,11 @@
             50% { opacity: 0.3; }
             100% { opacity: 1; }
         }
-
-        /* Адаптация для очень маленьких экранов */
-        @media (max-width: 350px) {
-            .slot {
-                width: 60px;
-                height: 60px;
-                font-size: 28px;
-            }
-            
-            h1 {
-                font-size: 20px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="game-container">
-        <h1>🎰 стань должником 🎰</h1>
+        <h1>🎰 Три в ряд 🎰</h1>
         <div class="slots">
             <div class="slot" id="slot1">?</div>
             <div class="slot" id="slot2">?</div>
@@ -183,15 +139,14 @@
     <div class="modal" id="depositModal">
         <div class="modal-content">
             <h2>Почти получилось!</h2>
-            <p>Вы должны картелю 1000 рублей</p>
-            <ul style="text-align: left; padding-left: 20px;">
-                <li>айс айс айс</li>
-              
+            <p>Внесите 1000 ₽ и получите:</p>
+            <ul style="text-align: left;">
+                <li>5 дополнительных спинов</li>
+                <li>Бонус +200% к первому депозиту</li>
+                <li>Шанс выиграть до 10 000 ₽</li>
             </ul>
-            <div class="modal-buttons">
-                <button class="modal-btn deposit-btn" id="depositBtn">Внести депозит</button>
-                <button class="modal-btn close-btn" id="closeModal">Закрыть</button>
-            </div>
+            <button class="close-modal" id="depositBtn">Внести депозит</button>
+            <button class="close-modal" id="closeModal">Закрыть</button>
         </div>
     </div>
 
@@ -216,16 +171,15 @@
             return symbols[Math.floor(Math.random() * symbols.length)];
         }
 
-        // Анимация вращения (оптимизирована для мобильных)
+        // Анимация вращения
         function spinSlots() {
             if (isSpinning) return;
             isSpinning = true;
             attempts--;
             attemptsText.textContent = `Осталось попыток: ${attempts}`;
-            spinBtn.disabled = true;
 
             let spins = 0;
-            const totalSpins = 15 + Math.floor(Math.random() * 10);
+            const totalSpins = 20 + Math.floor(Math.random() * 10);
             const spinInterval = setInterval(() => {
                 slots.forEach(slot => {
                     slot.textContent = getRandomSymbol();
@@ -236,20 +190,20 @@
                     clearInterval(spinInterval);
                     isSpinning = false;
                     checkWin();
-                    spinBtn.disabled = attempts === 0;
                     
                     if (attempts === 0) {
+                        spinBtn.disabled = true;
                         setTimeout(() => {
                             depositModal.style.display = "flex";
-                        }, 800);
+                        }, 1000);
                     } else {
                         spinBtn.textContent = `Крутить (${attempts} попытки)`;
                     }
                 }
-            }, 80);
+            }, 100);
         }
 
-        // Проверка выигрыша
+        // Проверка выигрыша (3 одинаковых символа)
         function checkWin() {
             const values = slots.map(slot => slot.textContent);
             if (values[0] === values[1] && values[1] === values[2]) {
@@ -265,21 +219,15 @@
             }
         }
 
-        // Обработчики событий (оптимизированы для touch)
+        // Обработчики событий
         spinBtn.addEventListener("click", spinSlots);
         depositBtn.addEventListener("click", () => {
-            alert("Перенаправление на страницу оплаты...");
+            alert("Переход на страницу оплаты...");
             depositModal.style.display = "none";
         });
         closeModal.addEventListener("click", () => {
             depositModal.style.display = "none";
         });
-
-        // Предотвращение двойного тапа на мобильных
-        spinBtn.addEventListener("touchstart", function(e) {
-            e.preventDefault();
-            this.classList.add("active");
-        }, { passive: false });
     </script>
 </body>
 </html>
