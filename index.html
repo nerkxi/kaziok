@@ -3,84 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Казино картеля</title>
+    <title>GameCurrency | Магазин игровой валюты</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #1a1a2e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        :root {
+            --primary: #3498db;
+            --primary-light: #e1f0fa;
+            --secondary: #2980b9;
+            --success: #2ecc71;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg: #f8fbfe;
+            --card: #ffffff;
+            --border: #e6f0fa;
+        }
+        
+        * {
             margin: 0;
-            color: white;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rubik', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .game-container {
-            width: 320px;
-            background: linear-gradient(135deg, #16213e, #0f3460);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            border: 2px solid #e94560;
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding-bottom: 85px;
         }
         
-        h1 {
-            color: #e94560;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        
-        .slots {
+        /* Шапка */
+        .header {
             display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
+            justify-content: space-between;
+            padding: 18px 20px;
+            background-color: var(--card);
+            position: relative;
+            z-index: 10;
         }
         
-        .slot {
-            width: 80px;
-            height: 80px;
-            background: #0f3460;
-            border: 2px solid #e94560;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 36px;
-            font-weight: bold;
-            color: gold;
-        }
-        
-        .spin-btn {
-            background: linear-gradient(45deg, #e94560, #ff6b6b);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 18px;
-            border-radius: 50px;
+        .header-icon {
+            width: 26px;
+            height: 26px;
             cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+            opacity: 0.8;
+            transition: all 0.2s;
         }
         
-        .spin-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 7px 20px rgba(233, 69, 96, 0.6);
+        .header-icon:hover {
+            opacity: 1;
+            transform: scale(1.1);
         }
         
-        .spin-btn:disabled {
-            background: #555;
-            cursor: not-allowed;
+        /* Основной контент */
+        .main-content {
+            padding: 0 20px 25px;
+            min-height: calc(100vh - 140px);
         }
         
-        .attempts {
-            margin-top: 15px;
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            letter-spacing: 0.3px;
+        }
+        
+        /* Баннер скидок */
+        .promo-banner {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            padding: 16px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .promo-banner::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .promo-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .promo-text {
             font-size: 14px;
-            color: #ccc;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
         
+        /* Список игр */
+        .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            gap: 18px;
+        }
+        
+        .game-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 18px 12px;
+            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease-out;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 100, 200, 0.1);
+        }
+        
+        .game-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 14px;
+            border-radius: 18px;
+            object-fit: cover;
+            background-color: var(--primary-light);
+        }
+        
+        .game-name {
+            font-weight: 500;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+        
+        .game-price {
+            color: var(--success);
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .game-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--success);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -88,146 +172,1189 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 100;
             justify-content: center;
             align-items: center;
-            z-index: 100;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .modal-content {
-            background: linear-gradient(135deg, #16213e, #0f3460);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 300px;
-            border: 2px solid #e94560;
+            background: var(--card);
+            padding: 28px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 35px rgba(0, 100, 200, 0.15);
+            transform: translateY(20px);
+            animation: slideUp 0.3s forwards;
         }
         
-        .close-modal {
-            background: #e94560;
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--secondary);
+            text-align: center;
+        }
+        
+        .input-group {
+            margin-bottom: 22px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--bg);
+            font-weight: 500;
+        }
+        
+        .btn {
+            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 18px;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 15px;
+            transition: all 0.2s;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
         }
         
-        .win-animation {
-            animation: winBlink 0.5s 3;
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
         }
         
-        @keyframes winBlink {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
+        .btn-secondary {
+            background-color: var(--bg);
+            color: var(--primary);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-light);
+        }
+        
+        /* История покупок */
+        .history-item {
+            background: var(--card);
+            padding: 18px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
+            border: 1px solid var(--border);
+        }
+        
+        .history-game {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: var(--secondary);
+        }
+        
+        .history-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: var(--text-light);
+        }
+        
+        .history-amount {
+            color: var(--success);
+            font-weight: 700;
+        }
+        
+        .history-date {
+            opacity: 0.8;
+        }
+        
+        /* Нижняя панель */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card);
+            display: flex;
+            justify-content: space-around;
+            padding: 14px 0;
+            box-shadow: 0 -4px 15px rgba(0, 100, 200, 0.08);
+            border-top: 1px solid var(--border);
+            z-index: 10;
+        }
+        
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 20px;
+            border-radius: 14px;
+            transition: all 0.25s;
+            position: relative;
+        }
+        
+        .nav-btn.active {
+            background-color: var(--primary-light);
+        }
+        
+        .nav-btn.active::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .nav-btn img {
+            width: 26px;
+            height: 26px;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+        }
+        
+        .nav-btn.active img {
+            transform: scale(1.1);
+        }
+        
+        .nav-btn span {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        
+        .nav-btn.active span {
+            color: var(--primary);
+        }
+        
+        /* Страницы */
+        .settings-page, .support-page, .history-page {
+            display: none;
+        }
+        
+        /* Настройки */
+        .settings-item {
+            background: var(--card);
+            padding: 20px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+        }
+        
+        /* Поддержка */
+        .support-message {
+            background: var(--card);
+            padding: 16px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
+            border: 1px solid var(--border);
+            max-width: 80%;
+        }
+        
+        .support-message.user {
+            margin-left: auto;
+            background-color: var(--primary-light);
+        }
+        
+        .support-input {
+            display: flex;
+            margin-top: 25px;
+            position: sticky;
+            bottom: 90px;
+            background: var(--bg);
+            padding: 10px 0;
+        }
+        
+        .support-input input {
+            flex: 1;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px 0 0 12px;
+            font-size: 16px;
+            background: var(--card);
+        }
+        
+        .support-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 22px;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        
+        .support-input button:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Кнопка назад */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            width: fit-content;
+        }
+        
+        .back-btn img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <h1>🎰 Три в ряд 🎰</h1>
-        <div class="slots">
-            <div class="slot" id="slot1">?</div>
-            <div class="slot" id="slot2">?</div>
-            <div class="slot" id="slot3">?</div>
-        </div>
-        <button class="spin-btn" id="spinBtn">Крутить (3 попытки)</button>
-        <div class="attempts" id="attemptsText">Осталось попыток: 3</div>
+    <!-- Шапка -->
+    <div class="header">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIwLDJINGMtMS4xLDAtMiwwLjktMiwydjEyYzAsMS4xLDAuOSwyLDIsMmg0djRsOC00aDRjMS4xLDAsMi0wLjksMi0yVjRDMjIsMi45LDIxLjEsMiwyMCwyeiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" class="header-icon" id="support-btn" alt="Поддержка">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5LDEzSDUgYy0wLjYsMC0xLDAuNC0xLDFzMC40LDEsMSwxaDE0YzAuNiwwLDEtMC40LDEtMVMxOS42LDEzLDE5LDEzeiBNMTksN0g1QzQuNCw3LDQsNy40LDQsOHMwLjQsMSwxLDFoMTRjMC42LDAsMS0wLjQsMS0xUzE5LjYsNywxOSw3eiBNMTksMTlINWMtMC42LDAtMSwwLjQtMSwxczAuNCwxLDEsMWgxNGMwLjYsMCwxLTAuNCwxLTFTMTkuNiwxOSwxOSwxOXoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" class="header-icon" id="settings-btn" alt="Настройки">
     </div>
 
-    <div class="modal" id="depositModal">
+    <!-- Основной контент -->
+    <div class="main-content">
+        <!-- Главная страница (валюта) -->
+        <div id="currency-page">
+            <h1 class="page-title">Игровая валюта</h1>
+            
+            <!-- Баннер скидок -->
+            <div class="promo-banner">
+                <div class="promo-title">Скидка 20% на первую покупку!</div>
+                <div class="promo-text">Используйте промокод WELCOME при оформлении</div>
+            </div>
+            
+            <div class="game-list">
+                <div class="game-card" onclick="openGameModal('Clash of Clans', 100, 50)">
+                    <div class="game-badge">-15%</div>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzAiIGZpbGw9IiNmM2M0MDAiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyMCIgZmlsbD0iI2ZmZTU2MiIvPjwvc3ZnPg==" class="game-icon" alt="Clash of Clans">
+                    <div class="game-name">Clash of Clans</div>
+                    <div class="game-price">50₽ за 100</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('PUBG Mobile', 100, 70)">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDA3YWM2Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMjAiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxMCIgZmlsbD0iIzAwN2FjNiIvPjwvc3ZnPg==" class="game-icon" alt="PUBG Mobile">
+                    <div class="game-name">PUBG Mobile</div>
+                    <div class="game-price">70₽ за 100</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('Genshin Impact', 100, 80)">
+                    <div class="game-badge">Хит</div>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjM2JhY2U0Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMjAiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxMCIgZmlsbD0iIzNiYWNlNCIvPjwvc3ZnPg==" class="game-icon" alt="Genshin Impact">
+                    <div class="game-name">Genshin Impact</div>
+                    <div class="game-price">80₽ за 100</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница истории -->
+        <div id="history-page" class="history-page">
+            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
+                <span>Назад</span>
+            </div>
+            <h1 class="page-title">История покупок</h1>
+            <div class="history-item">
+                <div class="history-game">Clash of Clans</div>
+                <div class="history-details">
+                    <span class="history-amount">500 монет</span>
+                    <span>250₽</span>
+                </div>
+                <div class="history-details">
+                    <span class="history-date">Сегодня, 14:30</span>
+                    <span style="color: var(--success);">Завершено</span>
+                </div>
+            </div>
+            <div class="history-item">
+                <div class="history-game">PUBG Mobile</div>
+                <div class="history-details">
+                    <span class="history-amount">300 монет</span>
+                    <span>210₽</span>
+                </div>
+                <div class="history-details">
+                    <span class="history-date">Вчера, 18:45</span>
+                    <span style="color: var(--success);">Завершено</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница настроек -->
+        <div id="settings-page" class="settings-page">
+            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
+                <span>Назад</span>
+            </div>
+            <h1 class="page-title">Настройки</h1>
+            <div class="settings-item">
+                <span>Уведомления</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                </label>
+            </div>
+            <div class="settings-item">
+                <span>Темная тема</span>
+                <label class="switch">
+                    <input type="checkbox">
+                </label>
+            </div>
+            <button class="btn btn-secondary" style="margin-top: 30px;">Выйти</button>
+        </div>
+
+        <!-- Страница поддержки -->
+        <div id="support-page" class="support-page">
+            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
+                <span>Назад</span>
+            </div>
+            <h1 class="page-title">Поддержка</h1>
+            <div class="support-message">
+                <p>Здравствуйте! Чем могу помочь?</p>
+                <span class="history-date">Сегодня, 14:30</span>
+            </div>
+            <div class="support-message user">
+                <p>Я купил валюту, но она не пришла</p>
+                <span class="history-date">Сегодня, 14:32</span>
+            </div>
+            <div class="support-message">
+                <p>Проверил ваш заказ - все в порядке. Попробуйте перезапустить игру. Если валюта не появится в течение часа, напишите мне.</p>
+                <span class="history-date">Сегодня, 14:35</span>
+            </div>
+            <div class="support-input">
+                <input type="text" placeholder="Напишите сообщение...">
+                <button>Отпр</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно покупки -->
+    <div id="game-modal" class="modal">
         <div class="modal-content">
-            <h2>Почти получилось!</h2>
-            <p>вы должны картелю 1000 рублей:</p>
-            <ul style="text-align: left;">
-                <li>спой фиксай честный человек, чтобы погасить долг 400 рублей</li>
-                <li>крутить снова 1000 рублей</li>
-                
-            </ul>
-            <button class="close-modal" id="depositBtn">Внести депозит</button>
-            <button class="close-modal" id="closeModal">Закрыть</button>
+            <h2 class="modal-title" id="modal-game-name">Название игры</h2>
+            <div class="input-group">
+                <label for="amount">Количество валюты</label>
+                <input type="number" id="amount" placeholder="Введите количество">
+            </div>
+            <div class="input-group">
+                <label for="price">Стоимость</label>
+                <input type="text" id="price" readonly>
+            </div>
+            <div class="input-group">
+                <label for="promo">Промокод (если есть)</label>
+                <input type="text" id="promo" placeholder="Введите промокод">
+            </div>
+            <button class="btn" onclick="buyCurrency()">Купить</button>
+            <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
+        </div>
+    </div>
+
+    <!-- Нижняя панель навигации -->
+    <div class="nav-bar">
+        <div class="nav-btn active" id="currency-btn">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyLDJBMTAsMTAgMCAwLDAgMiwxMkExMCwxMCAwIDAsMCAxMiwyMkExMCwxMCAwIDAsMCAyMiwxMkExMCwxMCAwIDAsMCAxMiwyTTcsMTJhNSw1IDAgMCwxIDUsNUExLDEgMCAwLDEgMTEsMThBNCw0IDAgMCwwIDcsMTRBNCw0IDAgMCwwIDExLDEwQTEsMSAwIDAsMSAxMiwxMUE1LDUgMCAwLDEgNywxMk0xNywxMkE1LDUgMCAwLDEgMTIsMTdBMSwxIDAgMCwxIDExLDE2QTQsNCAwIDAsMSAxNSwxMkE0LDQgMCAwLDEgMTksMTZBMSwxIDAgMCwxIDE4LDE3QTUsNSAwIDAsMSAxNywxMk0xMiwxM0E0LDQgMCAwLDEgMTYsMTdBNCw0IDAgMCwxIDEyLDIxQTQsNCAwIDAsMSA4LDE3QTQsNCAwIDAsMSAxMiwxM00xMiwxNUExLDEgMCAwLDAgMTEsMTZBMSwxIDAgMCwwIDEyLDE3QTEsMSAwIDAsMCAxMywxNkExLDEgMCAwLDAgMTIsMTVNMTIsN0E1LDUgMCAwLDEgNywxMkExLDEgMCAwLDEgNiwxMUE2LDYgMCAwLDAgMTIsNkE2LDYgMCAwLDAgMTgsMTFBMSwxIDAgMCwxIDE3LDEyQTUsNSAwIDAsMSAxMiw3TTEyLDlBNCw0IDAgMCwwIDgsMTNBNCw0IDAgMCwwIDEyLDE3QTQsNCAwIDAsMCAxNiwxM0E0LDQgMCAwLDAgMTIsOVoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" alt="Валюта">
+            <span>Валюта</span>
+        </div>
+        <div class="nav-btn" id="history-btn">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTExLDlIMTNWN0gxMU05LDlIMTFWN0g5TTEzLDE1SDExVjExSDEzTTksMTVIMTFWMTFIOU05LDlIMTFWMTAIOVY5TTEyLDJBMTAuMTYsMTAuMTYgMCwwLDAsMiwxMkExMC4xNiwxMC4xNiAwLDAsMCwxMiwyMkExMC4xNiwxMC4xNiAwLDAsMCwyMiwxMkExMC4xNiwxMC4xNiAwLDAsMCwxMiwyTTEyLDRBNy4zMSw3LjMxIDAsMCwxLDE0LjUsNC44N1Y2Ljc5QTQuNDUsNC40NSAwLDAsMSwxNiw4LjM5VjcuNDVBMi44NywyLjg3IDAsMCwwLDEyLDVWMTRBMiwyIDAsMCwxLDE0LDE2VjE3QTMsMyAwLDAsMCwxNSwxOEg5QTMsMyAwLDAsMCwxMiwxNVYxNkEyLDIsMCwwLDEsMTQsMTRWMTNBMywzIDAsMCwwLDksMTBWOUExLDEgMCwwLDEsMTAsOEgxMkExLDEgMCwwLDEsMTMsOVYxM0ExLDEgMCwwLDEsMTIsMTRWMTVBMSwxIDAsMCwxLDExLDE2VjE1QTIsMiAwLDAsMSw5LDEzVjEwQTQsNCAwLDAsMSwxMywxMFY4LjM5QTQuNDUsNC40NSAwLDAsMSwxNC41LDYuNzlWNC44N0E3LjMxLDcuMzEgMCwwLDEsMTIsNFoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" alt="История">
+            <span>История</span>
         </div>
     </div>
 
     <script>
-        const symbols = ["🍒", "🍋", "🍊", "🍇", "🔔", "7", "💰"];
-        const slots = [
-            document.getElementById("slot1"),
-            document.getElementById("slot2"),
-            document.getElementById("slot3")
-        ];
-        const spinBtn = document.getElementById("spinBtn");
-        const attemptsText = document.getElementById("attemptsText");
-        const depositModal = document.getElementById("depositModal");
-        const depositBtn = document.getElementById("depositBtn");
-        const closeModal = document.getElementById("closeModal");
+        // Текущие данные для модального окна
+        let currentGame = {
+            name: '',
+            rate: 0,
+            price: 0
+        };
 
-        let attempts = 3;
-        let isSpinning = false;
-
-        // Функция для рандомного символа
-        function getRandomSymbol() {
-            return symbols[Math.floor(Math.random() * symbols.length)];
-        }
-
-        // Анимация вращения
-        function spinSlots() {
-            if (isSpinning) return;
-            isSpinning = true;
-            attempts--;
-            attemptsText.textContent = `Осталось попыток: ${attempts}`;
-
-            let spins = 0;
-            const totalSpins = 20 + Math.floor(Math.random() * 10);
-            const spinInterval = setInterval(() => {
-                slots.forEach(slot => {
-                    slot.textContent = getRandomSymbol();
-                });
-                spins++;
+        // Открытие модального окна для покупки валюты
+        function openGameModal(name, rate, price) {
+            currentGame = { name, rate, price };
+            document.getElementById('modal-game-name').textContent = name;
+            document.getElementById('amount').value = '';
+            document.getElementById('price').value = '0₽';
+            document.getElementById('promo').value = '';
+            document.getElementById('game-modal').style.display = 'flex';
+            
+            // Обновляем цену при изменении количества
+            document.getElementById('amount').addEventListener('input', function() {
+                const amount = parseInt(this.value) || 0;
+                let totalPrice = (amount * price / rate).toFixed(2);
                 
-                if (spins >= totalSpins) {
-                    clearInterval(spinInterval);
-                    isSpinning = false;
-                    checkWin();
-                    
-                    if (attempts === 0) {
-                        spinBtn.disabled = true;
-                        setTimeout(() => {
-                            depositModal.style.display = "flex";
-                        }, 1000);
-                    } else {
-                        spinBtn.textContent = `Крутить (${attempts} попытки)`;
-                    }
+                // Проверка промокода
+                const promo = document.getElementById('promo').value;
+                if (promo === 'WELCOME') {
+                    totalPrice = (totalPrice * 0.8).toFixed(2);
                 }
-            }, 100);
+                
+                document.getElementById('price').value = totalPrice + '₽';
+            });
+            
+            // Также обновляем при изменении промокода
+            document.getElementById('promo').addEventListener('input', function() {
+                const amount = parseInt(document.getElementById('amount').value) || 0;
+                if (amount > 0) {
+                    let totalPrice = (amount * price / rate).toFixed(2);
+                    
+                    if (this.value === 'WELCOME') {
+                        totalPrice = (totalPrice * 0.8).toFixed(2);
+                    }
+                    
+                    document.getElementById('price').value = totalPrice + '₽';
+                }
+            });
         }
 
-        // Проверка выигрыша (3 одинаковых символа)
-        function checkWin() {
-            const values = slots.map(slot => slot.textContent);
-            if (values[0] === values[1] && values[1] === values[2]) {
-                slots.forEach(slot => {
-                    slot.classList.add("win-animation");
-                });
-                setTimeout(() => {
-                    slots.forEach(slot => {
-                        slot.classList.remove("win-animation");
-                    });
-                    alert(`🎉 Вы выиграли! Символы: ${values[0]} ${values[1]} ${values[2]}`);
-                }, 1500);
+        // Закрытие модального окна
+        function closeModal() {
+            document.getElementById('game-modal').style.display = 'none';
+        }
+
+        // Покупка валюты
+        function buyCurrency() {
+            const amount = parseInt(document.getElementById('amount').value);
+            if (amount && amount > 0) {
+                const promo = document.getElementById('promo').value;
+                let message = `Вы купили ${amount} ${currentGame.name} валюты за ${document.getElementById('price').value}`;
+                
+                if (promo === 'WELCOME') {
+                    message += '\n\nСкидка 20% применена!';
+                }
+                
+                alert(message);
+                closeModal();
+            } else {
+                alert('Пожалуйста, введите корректное количество');
             }
         }
 
-        // Обработчики событий
-        spinBtn.addEventListener("click", spinSlots);
-        depositBtn.addEventListener("click", () => {
-            alert("Переход на страницу оплаты...");
-            depositModal.style.display = "none";
+        // Навигация
+        document.getElementById('currency-btn').addEventListener('click', function() {
+            showPage('currency-page');
+            setActiveBtn(this);
         });
-        closeModal.addEventListener("click", () => {
-            depositModal.style.display = "none";
+
+        document.getElementById('history-btn').addEventListener('click', function() {
+            showPage('history-page');
+            setActiveBtn(this);
         });
+
+        document.getElementById('settings-btn').addEventListener('click', function() {
+            showPage('settings-page');
+            setActiveBtn(document.getElementById('currency-btn'));
+        });
+
+        document.getElementById('support-btn').addEventListener('click', function() {
+            showPage('support-page');
+            setActiveBtn(document.getElementById('currency-btn'));
+        });
+
+        function showPage(pageId) {
+            // Скрываем все страницы
+            document.getElementById('currency-page').style.display = 'none';
+            document.getElementById('history-page').style.display = 'none';
+            document.getElementById('settings-page').style.display = 'none';
+            document.getElementById('support-page').style.display = 'none';
+            
+            // Показываем нужную страницу
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        function setActiveBtn(btn) {
+            // Убираем активный класс у всех кнопок
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            
+            // Добавляем активный класс к выбранной кнопке
+            btn.classList.add('active');
+        }
+
+        // По умолчанию показываем страницу валюты
+        showPage('currency-page');
     </script>
 </body>
-</html>
+                </html> <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameCurrency | Магазин игровой валюты</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-light: #e1f0fa;
+            --secondary: #2980b9;
+            --success: #2ecc71;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg: #f8fbfe;
+            --card: #ffffff;
+            --border: #e6f0fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rubik', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding-bottom: 85px;
+        }
+        
+        /* Шапка */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 20px;
+            background-color: var(--card);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-icon {
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.2s;
+        }
+        
+        .header-icon:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        /* Основной контент */
+        .main-content {
+            padding: 0 20px 25px;
+            min-height: calc(100vh - 140px);
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            letter-spacing: 0.3px;
+        }
+        
+        /* Баннер скидок */
+        .promo-banner {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            padding: 16px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .promo-banner::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .promo-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .promo-text {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Список игр */
+        .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            gap: 18px;
+        }
+        
+        .game-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 18px 12px;
+            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease-out;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 100, 200, 0.1);
+        }
+        
+        .game-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 14px;
+            border-radius: 18px;
+            object-fit: cover;
+            background-color: var(--primary-light);
+        }
+        
+        .game-name {
+            font-weight: 500;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+        
+        .game-price {
+            color: var(--success);
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .game-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--success);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: var(--card);
+            padding: 28px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 35px rgba(0, 100, 200, 0.15);
+            transform: translateY(20px);
+            animation: slideUp 0.3s forwards;
+        }
+        
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--secondary);
+            text-align: center;
+        }
+        
+        .input-group {
+            margin-bottom: 22px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--bg);
+            font-weight: 500;
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--bg);
+            color: var(--primary);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-light);
+        }
+        
+        /* История покупок */
+        .history-item {
+            background: var(--card);
+            padding: 18px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
+            border: 1px solid var(--border);
+        }
+        
+        .history-game {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: var(--secondary);
+        }
+        
+        .history-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: var(--text-light);
+        }
+        
+        .history-amount {
+            color: var(--success);
+            font-weight: 700;
+        }
+        
+        .history-date {
+            opacity: 0.8;
+        }
+        
+        /* Нижняя панель */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card);
+            display: flex;
+            justify-content: space-around;
+            padding: 14px 0;
+            box-shadow: 0 -4px 15px rgba(0, 100, 200, 0.08);
+            border-top: 1px solid var(--border);
+            z-index: 10;
+        }
+        
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 20px;
+            border-radius: 14px;
+            transition: all 0.25s;
+            position: relative;
+        }
+        
+        .nav-btn.active {
+            background-color: var(--primary-light);
+        }
+        
+        .nav-btn.active::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .nav-btn img {
+            width: 26px;
+            height: 26px;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+        }
+        
+        .nav-btn.active img {
+            transform: scale(1.1);
+        }
+        
+        .nav-btn span {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        
+        .nav-btn.active span {
+            color: var(--primary);
+        }
+        
+        /* Страницы */
+        .settings-page, .support-page, .history-page {
+            display: none;
+        }
+        
+        /* Настройки */
+        .settings-item {
+            background: var(--card);
+            padding: 20px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+        }
+        
+        /* Поддержка */
+        .support-message {
+            background: var(--card);
+            padding: 16px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
+            border: 1px solid var(--border);
+            max-width: 80%;
+        }
+        
+        .support-message.user {
+            margin-left: auto;
+            background-color: var(--primary-light);
+        }
+        
+        .support-input {
+            display: flex;
+            margin-top: 25px;
+            position: sticky;
+            bottom: 90px;
+            background: var(--bg);
+            padding: 10px 0;
+        }
+        
+        .support-input input {
+            flex: 1;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px 0 0 12px;
+            font-size: 16px;
+            background: var(--card);
+        }
+        
+        .support-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 22px;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        
+        .support-input button:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Кнопка назад */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            width: fit-content;
+        }
+        
+        .back-btn img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <div class="header">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIwLDJINGMtMS4xLDAtMiwwLjktMiwydjEyYzAsMS4xLDAuOSwyLDIsMmg0djRsOC00aDRjMS4xLDAsMi0wLjksMi0yVjRDMjIsMi45LDIxLjEsMiwyMCwyeiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" class="header-icon" id="support-btn" alt="Поддержка">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5LDEzSDUgYy0wLjYsMC0xLDAuNC0xLDFzMC40LDEsMSwxaDE0YzAuNiwwLDEtMC40LDEtMVMxOS42LDEzLDE5LDEzeiBNMTksN0g1QzQuNCw3LDQsNy40LDQsOHMwLjQsMSwxLDFoMTRjMC42LDAsMS0wLjQsMS0xUzE5LjYsNywxOSw3eiBNMTksMTlINWMtMC42LDAtMSwwLjQtMSwxczAuNCwxLDEsMWgxNGMwLjYsMCwxLTAuNCwxLTFTMTkuNiwxOSwxOSwxOXoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" class="header-icon" id="settings-btn" alt="Настройки">
+    </div>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <!-- Главная страница (валюта) -->
+        <div id="currency-page">
+            <h1 class="page-title">Игровая валюта</h1>
+            
+            <!-- Баннер скидок -->
+            <div class="promo-banner">
+                <div class="promo-title">Скидка 20% на первую покупку!</div>
+                <div class="promo-text">Используйте промокод WELCOME при оформлении</div>
+            </div>
+            
+            <div class="game-list">
+                <div class="game-card" onclick="openGameModal('Clash of Clans', 100, 50)">
+                    <div class="game-badge">-15%</div>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzAiIGZpbGw9IiNmM2M0MDAiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyMCIgZmlsbD0iI2ZmZTU2MiIvPjwvc3ZnPg==" class="game-icon" alt="Clash of Clans">
+                    <div class="game-name">Clash of Clans</div>
+                    <div class="game-price">50₽ за 100</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('PUBG Mobile', 100, 70)">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDA3YWM2Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMjAiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxMCIgZmlsbD0iIzAwN2FjNiIvPjwvc3ZnPg==" class="game-icon" alt="PUBG Mobile">
+                    <div class="game-name">PUBG Mobile</div>
+                    <div class="game-price">70₽ за 100</div>
+                </div>
+                <div class="game-card" onclick="openGameModal('Genshin Impact', 100, 80)">
+                    <div class="game-badge">Хит</div>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjM2JhY2U0Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMjAiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxMCIgZmlsbD0iIzNiYWNlNCIvPjwvc3ZnPg==" class="game-icon" alt="Genshin Impact">
+                    <div class="game-name">Genshin Impact</div>
+                    <div class="game-price">80₽ за 100</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница истории -->
+        <div id="history-page" class="history-page">
+            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
+                <span>Назад</span>
+            </div>
+            <h1 class="page-title">История покупок</h1>
+            <div class="history-item">
+                <div class="history-game">Clash of Clans</div>
+                <div class="history-details">
+                    <span class="history-amount">500 монет</span>
+                    <span>250₽</span>
+                </div>
+                <div class="history-details">
+                    <span class="history-date">Сегодня, 14:30</span>
+                    <span style="color: var(--success);">Завершено</span>
+                </div>
+            </div>
+            <div class="history-item">
+                <div class="history-game">PUBG Mobile</div>
+                <div class="history-details">
+                    <span class="history-amount">300 монет</span>
+                    <span>210₽</span>
+                </div>
+                <div class="history-details">
+                    <span class="history-date">Вчера, 18:45</span>
+                    <span style="color: var(--success);">Завершено</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница настроек -->
+        <div id="settings-page" class="settings-page">
+            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
+                <span>Назад</span>
+            </div>
+            <h1 class="page-title">Настройки</h1>
+            <div class="settings-item">
+                <span>Уведомления</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                </label>
+            </div>
+            <div class="settings-item">
+                <span>Темная тема</span>
+                <label class="switch">
+                    <input type="checkbox">
+                </label>
+            </div>
+            <button class="btn btn-secondary" style="margin-top: 30px;">Выйти</button>
+        </div>
+
+        <!-- Страница поддержки -->
+        <div id="support-page" class="support-page">
+            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
+                <span>Назад</span>
+            </div>
+            <h1 class="page-title">Поддержка</h1>
+            <div class="support-message">
+                <p>Здравствуйте! Чем могу помочь?</p>
+                <span class="history-date">Сегодня, 14:30</span>
+            </div>
+            <div class="support-message user">
+                <p>Я купил валюту, но она не пришла</p>
+                <span class="history-date">Сегодня, 14:32</span>
+            </div>
+            <div class="support-message">
+                <p>Проверил ваш заказ - все в порядке. Попробуйте перезапустить игру. Если валюта не появится в течение часа, напишите мне.</p>
+                <span class="history-date">Сегодня, 14:35</span>
+            </div>
+            <div class="support-input">
+                <input type="text" placeholder="Напишите сообщение...">
+                <button>Отпр</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно покупки -->
+    <div id="game-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title" id="modal-game-name">Название игры</h2>
+            <div class="input-group">
+                <label for="amount">Количество валюты</label>
+                <input type="number" id="amount" placeholder="Введите количество">
+            </div>
+            <div class="input-group">
+                <label for="price">Стоимость</label>
+                <input type="text" id="price" readonly>
+            </div>
+            <div class="input-group">
+                <label for="promo">Промокод (если есть)</label>
+                <input type="text" id="promo" placeholder="Введите промокод">
+            </div>
+            <button class="btn" onclick="buyCurrency()">Купить</button>
+            <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
+        </div>
+    </div>
+
+    <!-- Нижняя панель навигации -->
+    <div class="nav-bar">
+        <div class="nav-btn active" id="currency-btn">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyLDJBMTAsMTAgMCAwLDAgMiwxMkExMCwxMCAwIDAsMCAxMiwyMkExMCwxMCAwIDAsMCAyMiwxMkExMCwxMCAwIDAsMCAxMiwyTTcsMTJhNSw1IDAgMCwxIDUsNUExLDEgMCAwLDEgMTEsMThBNCw0IDAgMCwwIDcsMTRBNCw0IDAgMCwwIDExLDEwQTEsMSAwIDAsMSAxMiwxMUE1LDUgMCAwLDEgNywxMk0xNywxMkE1LDUgMCAwLDEgMTIsMTdBMSwxIDAgMCwxIDExLDE2QTQsNCAwIDAsMSAxNSwxMkE0LDQgMCAwLDEgMTksMTZBMSwxIDAgMCwxIDE4LDE3QTUsNSAwIDAsMSAxNywxMk0xMiwxM0E0LDQgMCAwLDEgMTYsMTdBNCw0IDAgMCwxIDEyLDIxQTQsNCAwIDAsMSA4LDE3QTQsNCAwIDAsMSAxMiwxM00xMiwxNUExLDEgMCAwLDAgMTEsMTZBMSwxIDAgMCwwIDEyLDE3QTEsMSAwIDAsMCAxMywxNkExLDEgMCAwLDAgMTIsMTVNMTIsN0E1LDUgMCAwLDEgNywxMkExLDEgMCAwLDEgNiwxMUE2LDYgMCAwLDAgMTIsNkE2LDYgMCAwLDAgMTgsMTFBMSwxIDAgMCwxIDE3LDEyQTUsNSAwIDAsMSAxMiw3TTEyLDlBNCw0IDAgMCwwIDgsMTNBNCw0IDAgMCwwIDEyLDE3QTQsNCAwIDAsMCAxNiwxM0E0LDQgMCAwLDAgMTIsOVoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" alt="Валюта">
+            <span>Валюта</span>
+        </div>
+        <div class="nav-btn" id="history-btn">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTExLDlIMTNWN0gxMU05LDlIMTFWN0g5TTEzLDE1SDExVjExSDEzTTksMTVIMTFWMTFIOU05LDlIMTFWMTAIOVY5TTEyLDJBMTAuMTYsMTAuMTYgMCwwLDAsMiwxMkExMC4xNiwxMC4xNiAwLDAsMCwxMiwyMkExMC4xNiwxMC4xNiAwLDAsMCwyMiwxMkExMC4xNiwxMC4xNiAwLDAsMCwxMiwyTTEyLDRBNy4zMSw3LjMxIDAsMCwxLDE0LjUsNC44N1Y2Ljc5QTQuNDUsNC40NSAwLDAsMSwxNiw4LjM5VjcuNDVBMi44NywyLjg3IDAsMCwwLDEyLDVWMTRBMiwyIDAsMCwxLDE0LDE2VjE3QTMsMyAwLDAsMCwxNSwxOEg5QTMsMyAwLDAsMCwxMiwxNVYxNkEyLDIsMCwwLDEsMTQsMTRWMTNBMywzIDAsMCwwLDksMTBWOUExLDEgMCwwLDEsMTAsOEgxMkExLDEgMCwwLDEsMTMsOVYxM0ExLDEgMCwwLDEsMTIsMTRWMTVBMSwxIDAsMCwxLDExLDE2VjE1QTIsMiAwLDAsMSw5LDEzVjEwQTQsNCAwLDAsMSwxMywxMFY4LjM5QTQuNDUsNC40NSAwLDAsMSwxNC41LDYuNzlWNC44N0E3LjMxLDcuMzEgMCwwLDEsMTIsNFoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" alt="История">
+            <span>История</span>
+        </div>
+    </div>
+
+    <script>
+        // Текущие данные для модального окна
+        let currentGame = {
+            name: '',
+            rate: 0,
+            price: 0
+        };
+
+        // Открытие модального окна для покупки валюты
+        function openGameModal(name, rate, price) {
+            currentGame = { name, rate, price };
+            document.getElementById('modal-game-name').textContent = name;
+            document.getElementById('amount').value = '';
+            document.getElementById('price').value = '0₽';
+            document.getElementById('promo').value = '';
+            document.getElementById('game-modal').style.display = 'flex';
+            
+            // Обновляем цену при изменении количества
+            document.getElementById('amount').addEventListener('input', function() {
+                const amount = parseInt(this.value) || 0;
+                let totalPrice = (amount * price / rate).toFixed(2);
+                
+                // Проверка промокода
+                const promo = document.getElementById('promo').value;
+                if (promo === 'WELCOME') {
+                    totalPrice = (totalPrice * 0.8).toFixed(2);
+                }
+                
+                document.getElementById('price').value = totalPrice + '₽';
+            });
+            
+            // Также обновляем при изменении промокода
+            document.getElementById('promo').addEventListener('input', function() {
+                const amount = parseInt(document.getElementById('amount').value) || 0;
+                if (amount > 0) {
+                    let totalPrice = (amount * price / rate).toFixed(2);
+                    
+                    if (this.value === 'WELCOME') {
+                        totalPrice = (totalPrice * 0.8).toFixed(2);
+                    }
+                    
+                    document.getElementById('price').value = totalPrice + '₽';
+                }
+            });
+        }
+
+        // Закрытие модального окна
+        function closeModal() {
+            document.getElementById('game-modal').style.display = 'none';
+        }
+
+        // Покупка валюты
+        function buyCurrency() {
+            const amount = parseInt(document.getElementById('amount').value);
+ 
