@@ -2,710 +2,1208 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameCurrency | Магазин игровой валюты</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="yandex-games-sdk" content="1.0">
+    <title>Космический Защитник | Яндекс Игры</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap">
     <style>
-        :root {
-            --primary: #3498db;
-            --primary-light: #e1f0fa;
-            --secondary: #2980b9;
-            --success: #2ecc71;
-            --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --bg: #f8fbfe;
-            --card: #ffffff;
-            --border: #e6f0fa;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Rubik', sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
-        
+
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            padding-bottom: 85px;
-        }
-        
-        /* Шапка */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            padding: 18px 20px;
-            background-color: var(--card);
-            position: relative;
-            z-index: 10;
-        }
-        
-        .header-icon {
-            width: 26px;
-            height: 26px;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: all 0.2s;
-        }
-        
-        .header-icon:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        
-        /* Основной контент */
-        .main-content {
-            padding: 0 20px 25px;
-            min-height: calc(100vh - 140px);
-        }
-        
-        .page-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--secondary);
-            letter-spacing: 0.3px;
-        }
-        
-        /* Баннер скидок */
-        .promo-banner {
-            background: linear-gradient(135deg, #3498db, #2ecc71);
-            color: white;
-            padding: 16px;
-            border-radius: 14px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
-            position: relative;
             overflow: hidden;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .promo-banner::before {
-            content: "";
+
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            max-height: 600px;
+            margin: 0 auto;
+        }
+
+        #game-canvas {
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 120px;
-            height: 120px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-        
-        .promo-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .promo-text {
-            font-size: 14px;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Список игр */
-        .game-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
-            gap: 18px;
-        }
-        
-        .game-card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 18px 12px;
-            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease-out;
-            border: 1px solid var(--border);
-            position: relative;
-        }
-        
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 100, 200, 0.1);
-        }
-        
-        .game-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 14px;
-            border-radius: 18px;
-            object-fit: cover;
-            background-color: var(--primary-light);
-        }
-        
-        .game-name {
-            font-weight: 500;
-            margin-bottom: 6px;
-            font-size: 16px;
-        }
-        
-        .game-price {
-            color: var(--success);
-            font-size: 15px;
-            font-weight: 500;
-        }
-        
-        .game-badge {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: var(--success);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s;
+            z-index: 10;
+            background: #000;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.5);
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .modal-content {
-            background: var(--card);
-            padding: 28px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 35px rgba(0, 100, 200, 0.15);
-            transform: translateY(20px);
-            animation: slideUp 0.3s forwards;
-        }
-        
-        @keyframes slideUp {
-            to { transform: translateY(0); }
-        }
-        
-        .modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: var(--secondary);
-            text-align: center;
-        }
-        
-        .input-group {
-            margin-bottom: 22px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 15px;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-        
-        .input-group input {
-            width: 100%;
-            padding: 16px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-size: 16px;
-            background: var(--bg);
-            font-weight: 500;
-        }
-        
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 18px;
-            border-radius: 12px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-top: 10px;
-            letter-spacing: 0.5px;
-        }
-        
-        .btn:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background-color: var(--bg);
-            color: var(--primary);
-            border: 1px solid var(--border);
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--primary-light);
-        }
-        
-        /* История покупок */
-        .history-item {
-            background: var(--card);
-            padding: 18px;
-            margin-bottom: 14px;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
-            border: 1px solid var(--border);
-        }
-        
-        .history-game {
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 16px;
-            color: var(--secondary);
-        }
-        
-        .history-details {
-            display: flex;
-            justify-content: space-between;
-            font-size: 15px;
-            color: var(--text-light);
-        }
-        
-        .history-amount {
-            color: var(--success);
-            font-weight: 700;
-        }
-        
-        .history-date {
-            opacity: 0.8;
-        }
-        
-        /* Нижняя панель */
-        .nav-bar {
-            position: fixed;
-            bottom: 0;
+
+        .screen {
+            position: absolute;
+            top: 0;
             left: 0;
             width: 100%;
-            background: var(--card);
-            display: flex;
-            justify-content: space-around;
-            padding: 14px 0;
-            box-shadow: 0 -4px 15px rgba(0, 100, 200, 0.08);
-            border-top: 1px solid var(--border);
-            z-index: 10;
-        }
-        
-        .nav-btn {
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            cursor: pointer;
-            padding: 8px 20px;
-            border-radius: 14px;
-            transition: all 0.25s;
-            position: relative;
+            justify-content: center;
+            z-index: 20;
+            background: rgba(10, 20, 40, 0.9);
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
         }
-        
-        .nav-btn.active {
-            background-color: var(--primary-light);
+
+        #menu-screen {
+            display: flex;
         }
-        
-        .nav-btn.active::before {
-            content: "";
-            position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 4px;
-            background-color: var(--primary);
-            border-radius: 2px;
-        }
-        
-        .nav-btn img {
-            width: 26px;
-            height: 26px;
-            margin-bottom: 6px;
-            transition: all 0.2s;
-        }
-        
-        .nav-btn.active img {
-            transform: scale(1.1);
-        }
-        
-        .nav-btn span {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text);
-            transition: all 0.2s;
-        }
-        
-        .nav-btn.active span {
-            color: var(--primary);
-        }
-        
-        /* Страницы */
-        .settings-page, .support-page, .history-page {
+
+        #game-over-screen, #pause-screen {
             display: none;
         }
-        
-        /* Настройки */
-        .settings-item {
-            background: var(--card);
-            padding: 20px;
-            margin-bottom: 14px;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border);
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00aaff, 0 0 20px #0088ff;
+            color: #00eeff;
         }
-        
-        /* Поддержка */
-        .support-message {
-            background: var(--card);
-            padding: 16px;
-            margin-bottom: 14px;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0, 100, 200, 0.05);
-            border: 1px solid var(--border);
-            max-width: 80%;
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #00eeff;
         }
-        
-        .support-message.user {
-            margin-left: auto;
-            background-color: var(--primary-light);
-        }
-        
-        .support-input {
-            display: flex;
-            margin-top: 25px;
-            position: sticky;
-            bottom: 90px;
-            background: var(--bg);
-            padding: 10px 0;
-        }
-        
-        .support-input input {
-            flex: 1;
-            padding: 16px;
-            border: 1px solid var(--border);
-            border-radius: 12px 0 0 12px;
-            font-size: 16px;
-            background: var(--card);
-        }
-        
-        .support-input button {
-            background-color: var(--primary);
+
+        .btn {
+            background: linear-gradient(135deg, #00aaff 0%, #0066ff 100%);
             color: white;
             border: none;
-            padding: 0 22px;
-            border-radius: 0 12px 12px 0;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: 'Orbitron', sans-serif;
             cursor: pointer;
-            font-weight: 700;
-            transition: all 0.2s;
+            margin: 10px 0;
+            width: 220px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4);
+            transition: all 0.3s ease;
         }
-        
-        .support-input button:hover {
-            background-color: var(--secondary);
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.6);
         }
-        
-        /* Кнопка назад */
-        .back-btn {
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        #hud {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hud-item {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            color: var(--primary);
-            font-weight: 500;
-            cursor: pointer;
-            width: fit-content;
+            gap: 8px;
+            font-size: 18px;
+            background: rgba(0, 0, 30, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 150, 255, 0.5);
         }
-        
-        .back-btn img {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
+
+        .hud-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #00eeff;
+        }
+
+        .buff-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            background: rgba(0, 170, 255, 0.2);
+            border: 2px solid #00aaff;
+        }
+
+        .buff-active {
+            background: rgba(0, 255, 150, 0.3);
+            border-color: #00ffaa;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 30;
+            padding: 0 20px;
+        }
+
+        .control-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(0, 100, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            user-select: none;
+            border: 2px solid rgba(0, 200, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+            cursor: pointer;
+        }
+
+        #shoot-btn {
+            background: rgba(255, 50, 50, 0.3);
+            border: 2px solid rgba(255, 100, 100, 0.8);
+            box-shadow: 0 0 10px rgba(255, 50, 50, 0.5);
+        }
+
+        .instructions {
+            max-width: 600px;
+            margin: 20px 0;
+            line-height: 1.6;
+            font-size: 16px;
+            color: #aaccff;
+        }
+
+        .highlight {
+            color: #00eeff;
+            font-weight: 500;
+        }
+
+        /* Стили для сердечек */
+        .hearts {
+            display: flex;
+            gap: 5px;
+        }
+
+        .heart {
+            font-size: 24px;
+            color: #ff5555;
+            transition: all 0.3s ease;
+        }
+
+        .heart.lost {
+            color: #555;
+            transform: scale(0.8);
+            opacity: 0.5;
+        }
+
+        /* Анимация потери сердца */
+        @keyframes heartLost {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.8; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        .heart-animate {
+            animation: heartLost 0.5s ease forwards;
         }
     </style>
 </head>
 <body>
-    <!-- Шапка -->
-    <div class="header">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIwLDJINGMtMS4xLDAtMiwwLjktMiwydjEyYzAsMS4xLDAuOSwyLDIsMmg0djRsOC00aDRjMS4xLDAsMi0wLjksMi0yVjRDMjIsMi45LDIxLjEsMiwyMCwyeiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" class="header-icon" id="support-btn" alt="Поддержка">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5LDEzSDUgYy0wLjYsMC0xLDAuNC0xLDFzMC40LDEsMSwxaDE0YzAuNiwwLDEtMC40LDEtMVMxOS42LDEzLDE5LDEzeiBNMTksN0g1QzQuNCw3LDQsNy40LDQsOHMwLjQsMSwxLDFoMTRjMC42LDAsMS0wLjQsMS0xUzE5LjYsNywxOSw3eiBNMTksMTlINWMtMC42LDAtMSwwLjQtMSwxczAuNCwxLDEsMWgxNGMwLjYsMCwxLTAuNCwxLTFTMTkuNiwxOSwxOSwxOXoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" class="header-icon" id="settings-btn" alt="Настройки">
-    </div>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
 
-    <!-- Основной контент -->
-    <div class="main-content">
-        <!-- Главная страница (валюта) -->
-        <div id="currency-page">
-            <h1 class="page-title">Игровая валюта</h1>
-            
-            <!-- Баннер скидок -->
-            <div class="promo-banner">
-                <div class="promo-title">Скидка 20% на первую покупку!</div>
-                <div class="promo-text">Используйте промокод WELCOME при оформлении</div>
+        <div id="hud">
+            <div class="hud-item">
+                <span class="hud-label">Очки:</span>
+                <span id="score">0</span>
             </div>
-            
-            <div class="game-list">
-                <div class="game-card" onclick="openGameModal('Clash of Clans', 100, 50)">
-                    <div class="game-badge">-15%</div>
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzAiIGZpbGw9IiNmM2M0MDAiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIyMCIgZmlsbD0iI2ZmZTU2MiIvPjwvc3ZnPg==" class="game-icon" alt="Clash of Clans">
-                    <div class="game-name">Clash of Clans</div>
-                    <div class="game-price">50₽ за 100</div>
+            <div class="hud-item">
+                <span class="hud-label">Жизни:</span>
+                <div id="hearts" class="hearts">
+                    <span class="heart">❤️</span>
+                    <span class="heart">❤️</span>
+                    <span class="heart">❤️</span>
                 </div>
-                <div class="game-card" onclick="openGameModal('PUBG Mobile', 100, 70)">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDA3YWM2Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMjAiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxMCIgZmlsbD0iIzAwN2FjNiIvPjwvc3ZnPg==" class="game-icon" alt="PUBG Mobile">
-                    <div class="game-name">PUBG Mobile</div>
-                    <div class="game-price">70₽ за 100</div>
-                </div>
-                <div class="game-card" onclick="openGameModal('Genshin Impact', 100, 80)">
-                    <div class="game-badge">Хит</div>
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjM2JhY2U0Ii8+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMjAiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxMCIgZmlsbD0iIzNiYWNlNCIvPjwvc3ZnPg==" class="game-icon" alt="Genshin Impact">
-                    <div class="game-name">Genshin Impact</div>
-                    <div class="game-price">80₽ за 100</div>
-                </div>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">Лучший:</span>
+                <span id="best-score">0</span>
+            </div>
+            <div id="buffs" style="display: flex; gap: 10px; margin-top: 10px;">
+                <div class="buff-indicator" data-type="shield">🛡️</div>
+                <div class="buff-indicator" data-type="rapid_fire">🔥</div>
+                <div class="buff-indicator" data-type="invincible">💫</div>
             </div>
         </div>
 
-        <!-- Страница истории -->
-        <div id="history-page" class="history-page">
-            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
-                <span>Назад</span>
-            </div>
-            <h1 class="page-title">История покупок</h1>
-            <div class="history-item">
-                <div class="history-game">Clash of Clans</div>
-                <div class="history-details">
-                    <span class="history-amount">500 монет</span>
-                    <span>250₽</span>
-                </div>
-                <div class="history-details">
-                    <span class="history-date">Сегодня, 14:30</span>
-                    <span style="color: var(--success);">Завершено</span>
+        <div id="controls">
+            <div class="control-row">
+                <div class="control-btn" id="up-btn">↑</div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="control-btn" id="left-btn">←</div>
+                    <div class="control-btn" id="down-btn">↓</div>
+                    <div class="control-btn" id="right-btn">→</div>
                 </div>
             </div>
-            <div class="history-item">
-                <div class="history-game">PUBG Mobile</div>
-                <div class="history-details">
-                    <span class="history-amount">300 монет</span>
-                    <span>210₽</span>
-                </div>
-                <div class="history-details">
-                    <span class="history-date">Вчера, 18:45</span>
-                    <span style="color: var(--success);">Завершено</span>
-                </div>
-            </div>
+            <div class="control-btn" id="shoot-btn">⚡</div>
         </div>
 
-        <!-- Страница настроек -->
-        <div id="settings-page" class="settings-page">
-            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
-                <span>Назад</span>
+        <div id="menu-screen" class="screen">
+            <h1>КОСМИЧЕСКИЙ ЗАЩИТНИК</h1>
+            <div class="instructions">
+                <p>Защищайте Землю от астероидов!</p>
+                <p>У вас есть 3 жизни в виде сердечек</p>
+                <p>Собирайте бонусы для усиления корабля</p>
+                <p>Лучший результат: <span id="menu-best-score">0</span></p>
             </div>
-            <h1 class="page-title">Настройки</h1>
-            <div class="settings-item">
-                <span>Уведомления</span>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                </label>
-            </div>
-            <div class="settings-item">
-                <span>Темная тема</span>
-                <label class="switch">
-                    <input type="checkbox">
-                </label>
-            </div>
-            <button class="btn btn-secondary" style="margin-top: 30px;">Выйти</button>
+            <button id="start-btn" class="btn">Начать игру</button>
         </div>
 
-        <!-- Страница поддержки -->
-        <div id="support-page" class="support-page">
-            <div class="back-btn" onclick="showPage('currency-page'); setActiveBtn(document.getElementById('currency-btn'));">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LjQxLDE2LjU4TDEwLjgzLDEyTDE1LjQxLDcuNDJMMTQsNkw4LDEyTDE0LDE4TDE1LjQxLDE2LjU4WiIgZmlsbD0iIzI5ODBiOSIvPjwvc3ZnPg==" alt="Назад">
-                <span>Назад</span>
-            </div>
-            <h1 class="page-title">Поддержка</h1>
-            <div class="support-message">
-                <p>Здравствуйте! Чем могу помочь?</p>
-                <span class="history-date">Сегодня, 14:30</span>
-            </div>
-            <div class="support-message user">
-                <p>Я купил валюту, но она не пришла</p>
-                <span class="history-date">Сегодня, 14:32</span>
-            </div>
-            <div class="support-message">
-                <p>Проверил ваш заказ - все в порядке. Попробуйте перезапустить игру. Если валюта не появится в течение часа, напишите мне.</p>
-                <span class="history-date">Сегодня, 14:35</span>
-            </div>
-            <div class="support-input">
-                <input type="text" placeholder="Напишите сообщение...">
-                <button>Отпр</button>
-            </div>
+        <div id="pause-screen" class="screen">
+            <h2>ПАУЗА</h2>
+            <button id="resume-btn" class="btn">Продолжить</button>
+            <button id="menu-btn" class="btn">Главное меню</button>
         </div>
-    </div>
 
-    <!-- Модальное окно покупки -->
-    <div id="game-modal" class="modal">
-        <div class="modal-content">
-            <h2 class="modal-title" id="modal-game-name">Название игры</h2>
-            <div class="input-group">
-                <label for="amount">Количество валюты</label>
-                <input type="number" id="amount" placeholder="Введите количество">
-            </div>
-            <div class="input-group">
-                <label for="price">Стоимость</label>
-                <input type="text" id="price" readonly>
-            </div>
-            <div class="input-group">
-                <label for="promo">Промокод (если есть)</label>
-                <input type="text" id="promo" placeholder="Введите промокод">
-            </div>
-            <button class="btn" onclick="buyCurrency()">Купить</button>
-            <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
-        </div>
-    </div>
-
-    <!-- Нижняя панель навигации -->
-    <div class="nav-bar">
-        <div class="nav-btn active" id="currency-btn">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyLDJBMTAsMTAgMCAwLDAgMiwxMkExMCwxMCAwIDAsMCAxMiwyMkExMCwxMCAwIDAsMCAyMiwxMkExMCwxMCAwIDAsMCAxMiwyTTcsMTJhNSw1IDAgMCwxIDUsNUExLDEgMCAwLDEgMTEsMThBNCw0IDAgMCwwIDcsMTRBNCw0IDAgMCwwIDExLDEwQTEsMSAwIDAsMSAxMiwxMUE1LDUgMCAwLDEgNywxMk0xNywxMkE1LDUgMCAwLDEgMTIsMTdBMSwxIDAgMCwxIDExLDE2QTQsNCAwIDAsMSAxNSwxMkE0LDQgMCAwLDEgMTksMTZBMSwxIDAgMCwxIDE4LDE3QTUsNSAwIDAsMSAxNywxMk0xMiwxM0E0LDQgMCAwLDEgMTYsMTdBNCw0IDAgMCwxIDEyLDIxQTQsNCAwIDAsMSA4LDE3QTQsNCAwIDAsMSAxMiwxM00xMiwxNUExLDEgMCAwLDAgMTEsMTZBMSwxIDAgMCwwIDEyLDE3QTEsMSAwIDAsMCAxMywxNkExLDEgMCAwLDAgMTIsMTVNMTIsN0E1LDUgMCAwLDEgNywxMkExLDEgMCAwLDEgNiwxMUE2LDYgMCAwLDAgMTIsNkE2LDYgMCAwLDAgMTgsMTFBMSwxIDAgMCwxIDE3LDEyQTUsNSAwIDAsMSAxMiw3TTEyLDlBNCw0IDAgMCwwIDgsMTNBNCw0IDAgMCwwIDEyLDE3QTQsNCAwIDAsMCAxNiwxM0E0LDQgMCAwLDAgMTIsOVoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" alt="Валюта">
-            <span>Валюта</span>
-        </div>
-        <div class="nav-btn" id="history-btn">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTExLDlIMTNWN0gxMU05LDlIMTFWN0g5TTEzLDE1SDExVjExSDEzTTksMTVIMTFWMTFIOU05LDlIMTFWMTAIOVY5TTEyLDJBMTAuMTYsMTAuMTYgMCwwLDAsMiwxMkExMC4xNiwxMC4xNiAwLDAsMCwxMiwyMkExMC4xNiwxMC4xNiAwLDAsMCwyMiwxMkExMC4xNiwxMC4xNiAwLDAsMCwxMiwyTTEyLDRBNy4zMSw3LjMxIDAsMCwxLDE0LjUsNC44N1Y2Ljc5QTQuNDUsNC40NSAwLDAsMSwxNiw4LjM5VjcuNDVBMi44NywyLjg3IDAsMCwwLDEyLDVWMTRBMiwyIDAsMCwxLDE0LDE2VjE3QTMsMyAwLDAsMCwxNSwxOEg5QTMsMyAwLDAsMCwxMiwxNVYxNkEyLDIsMCwwLDEsMTQsMTRWMTNBMywzIDAsMCwwLDksMTBWOUExLDEgMCwwLDEsMTAsOEgxMkExLDEgMCwwLDEsMTMsOVYxM0ExLDEgMCwwLDEsMTIsMTRWMTVBMSwxIDAsMCwxLDExLDE2VjE1QTIsMiAwLDAsMSw5LDEzVjEwQTQsNCAwLDAsMSwxMywxMFY4LjM5QTQuNDUsNC40NSAwLDAsMSwxNC41LDYuNzlWNC44N0E3LjMxLDcuMzEgMCwwLDEsMTIsNFoiIGZpbGw9IiMyOTgwYjkiLz48L3N2Zz4=" alt="История">
-            <span>История</span>
+        <div id="game-over-screen" class="screen">
+            <h2>ИГРА ОКОНЧЕНА</h2>
+            <p id="final-score">Ваш счет: 0</p>
+            <p id="best-score-display">Лучший результат: 0</p>
+            <button id="restart-btn" class="btn">Играть снова</button>
+            <button id="menu-btn-2" class="btn">Главное меню</button>
         </div>
     </div>
 
     <script>
-        // Текущие данные для модального окна
-        let currentGame = {
-            name: '',
-            rate: 0,
-            price: 0
+        // Основные константы игры
+        const GAME_STATE = {
+            MENU: 0,
+            PLAYING: 1,
+            PAUSED: 2,
+            GAME_OVER: 3
         };
 
-        // Открытие модального окна для покупки валюты
-        function openGameModal(name, rate, price) {
-            currentGame = { name, rate, price };
-            document.getElementById('modal-game-name').textContent = name;
-            document.getElementById('amount').value = '';
-            document.getElementById('price').value = '0₽';
-            document.getElementById('promo').value = '';
-            document.getElementById('game-modal').style.display = 'flex';
-            
-            // Обновляем цену при изменении количества
-            document.getElementById('amount').addEventListener('input', function() {
-                const amount = parseInt(this.value) || 0;
-                let totalPrice = (amount * price / rate).toFixed(2);
-                
-                // Проверка промокода
-                const promo = document.getElementById('promo').value;
-                if (promo === 'WELCOME') {
-                    totalPrice = (totalPrice * 0.8).toFixed(2);
-                }
-                
-                document.getElementById('price').value = totalPrice + '₽';
-            });
-            
-            // Также обновляем при изменении промокода
-            document.getElementById('promo').addEventListener('input', function() {
-                const amount = parseInt(document.getElementById('amount').value) || 0;
-                if (amount > 0) {
-                    let totalPrice = (amount * price / rate).toFixed(2);
-                    
-                    if (this.value === 'WELCOME') {
-                        totalPrice = (totalPrice * 0.8).toFixed(2);
-                    }
-                    
-                    document.getElementById('price').value = totalPrice + '₽';
-                }
-            });
-        }
+        // Типы бафов
+        const BUFF_TYPES = {
+            SHIELD: 'shield',
+            RAPID_FIRE: 'rapid_fire',
+            INVINCIBLE: 'invincible'
+        };
 
-        // Закрытие модального окна
-        function closeModal() {
-            document.getElementById('game-modal').style.display = 'none';
-        }
+        // Классы игры
+        class Vector {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
 
-        // Покупка валюты
-        function buyCurrency() {
-            const amount = parseInt(document.getElementById('amount').value);
-            if (amount && amount > 0) {
-                const promo = document.getElementById('promo').value;
-                let message = `Вы купили ${amount} ${currentGame.name} валюты за ${document.getElementById('price').value}`;
-                
-                if (promo === 'WELCOME') {
-                    message += '\n\nСкидка 20% применена!';
-                }
-                
-                alert(message);
-                closeModal();
-            } else {
-                alert('Пожалуйста, введите корректное количество');
+            add(v) {
+                return new Vector(this.x + v.x, this.y + v.y);
+            }
+
+            subtract(v) {
+                return new Vector(this.x - v.x, this.y - v.y);
+            }
+
+            multiply(scalar) {
+                return new Vector(this.x * scalar, this.y * scalar);
+            }
+
+            magnitude() {
+                return Math.sqrt(this.x * this.x + this.y * this.y);
+            }
+
+            normalize() {
+                const mag = this.magnitude();
+                return mag === 0 ? new Vector(0, 0) : new Vector(this.x / mag, this.y / mag);
             }
         }
 
-        // Навигация
-        document.getElementById('currency-btn').addEventListener('click', function() {
-            showPage('currency-page');
-            setActiveBtn(this);
-        });
+        class GameObject {
+            constructor(position, velocity, size) {
+                this.position = position;
+                this.velocity = velocity;
+                this.size = size;
+                this.active = true;
+            }
 
-        document.getElementById('history-btn').addEventListener('click', function() {
-            showPage('history-page');
-            setActiveBtn(this);
-        });
+            update(deltaTime) {
+                this.position = this.position.add(this.velocity.multiply(deltaTime));
+            }
 
-        document.getElementById('settings-btn').addEventListener('click', function() {
-            showPage('settings-page');
-            setActiveBtn(document.getElementById('currency-btn'));
-        });
+            draw(ctx) {
+                // Базовый метод отрисовки
+            }
 
-        document.getElementById('support-btn').addEventListener('click', function() {
-            showPage('support-page');
-            setActiveBtn(document.getElementById('currency-btn'));
-        });
-
-        function showPage(pageId) {
-            // Скрываем все страницы    
-            document.getElementById('currency-page').style.display = 'none';
-            document.getElementById('history-page').style.display = 'none';
-            document.getElementById('settings-page').style.display = 'none';
-            document.getElementById('support-page').style.display = 'none';
-            
-            // Показываем нужную страницу
-            document.getElementById(pageId).style.display = 'block';
+            collidesWith(other) {
+                const dx = this.position.x - other.position.x;
+                const dy = this.position.y - other.position.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                return distance < (this.size + other.size) / 2;
+            }
         }
 
-        function setActiveBtn(btn) {
-            // Убираем активный класс у всех кнопок
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                b.classList.remove('active');
-            });
-            
-            // Добавляем активный класс к выбранной кнопке
-            btn.classList.add('active');
+        class PlayerShip extends GameObject {
+            constructor(game) {
+                super(new Vector(game.canvas.width/2, game.canvas.height - 100), new Vector(0, 0), 30);
+                this.game = game;
+                this.lives = 3; // Три жизни вместо здоровья
+                this.shootCooldown = 0;
+                this.shootDelay = 200; // Увеличена скорость стрельбы
+                this.maxSpeed = 2.5; // Увеличена скорость корабля
+                this.acceleration = 0.07; // Улучшена маневренность
+                this.currentSpeedX = 0;
+                this.currentSpeedY = 0;
+                this.friction = 0.93;
+                this.shield = false;
+                this.rapidFire = false;
+                this.invincible = false;
+                this.activeBuffs = {};
+                this.invulnerableTimer = 0; // Таймер неуязвимости после получения урона
+            }
+
+            update(deltaTime) {
+                // Применяем трение для плавного замедления
+                this.currentSpeedX *= this.friction;
+                this.currentSpeedY *= this.friction;
+
+                // Обновляем скорость
+                this.velocity = new Vector(this.currentSpeedX, this.currentSpeedY);
+
+                super.update(deltaTime);
+
+                // Ограничение движения в пределах экрана
+                const canvas = this.game.canvas;
+                this.position.x = Math.max(this.size/2, Math.min(canvas.width - this.size/2, this.position.x));
+                this.position.y = Math.max(this.size/2, Math.min(canvas.height - this.size/2, this.position.y));
+
+                // Обновление перезарядки
+                if (this.shootCooldown > 0) {
+                    this.shootCooldown -= deltaTime;
+                }
+
+                // Обновление бафов
+                for (const buffType in this.activeBuffs) {
+                    this.activeBuffs[buffType] -= deltaTime;
+                    if (this.activeBuffs[buffType] <= 0) {
+                        this.removeBuff(buffType);
+                    }
+                }
+
+                // Обновление таймера неуязвимости
+                if (this.invulnerableTimer > 0) {
+                    this.invulnerableTimer -= deltaTime;
+                }
+            }
+
+            applyBuff(type, duration) {
+                this.activeBuffs[type] = duration;
+
+                switch(type) {
+                    case BUFF_TYPES.SHIELD:
+                        this.shield = true;
+                        break;
+                    case BUFF_TYPES.RAPID_FIRE:
+                        this.rapidFire = true;
+                        this.shootDelay = 100; // Еще более быстрая стрельба с бафом
+                        break;
+                    case BUFF_TYPES.INVINCIBLE:
+                        this.invincible = true;
+                        break;
+                }
+
+                this.game.updateBuffIndicators();
+            }
+
+            removeBuff(type) {
+                delete this.activeBuffs[type];
+
+                switch(type) {
+                    case BUFF_TYPES.SHIELD:
+                        this.shield = false;
+                        break;
+                    case BUFF_TYPES.RAPID_FIRE:
+                        this.rapidFire = false;
+                        this.shootDelay = 200;
+                        break;
+                    case BUFF_TYPES.INVINCIBLE:
+                        this.invincible = false;
+                        break;
+                }
+
+                this.game.updateBuffIndicators();
+            }
+
+            takeDamage() {
+                // Если неуязвимый или есть щит - не получаем урон
+                if (this.invulnerableTimer > 0 || this.invincible) return false;
+
+                if (this.shield) {
+                    this.shield = false;
+                    this.removeBuff(BUFF_TYPES.SHIELD);
+                    return false;
+                }
+
+                // Получаем урон
+                this.lives--;
+                this.invulnerableTimer = 2000; // 2 секунды неуязвимости после получения урона
+
+                return true;
+            }
+
+            move(direction) {
+                switch(direction) {
+                    case 'left':
+                        this.currentSpeedX = Math.max(-this.maxSpeed, this.currentSpeedX - this.acceleration);
+                        break;
+                    case 'right':
+                        this.currentSpeedX = Math.min(this.maxSpeed, this.currentSpeedX + this.acceleration);
+                        break;
+                    case 'up':
+                        this.currentSpeedY = Math.max(-this.maxSpeed, this.currentSpeedY - this.acceleration);
+                        break;
+                    case 'down':
+                        this.currentSpeedY = Math.min(this.maxSpeed, this.currentSpeedY + this.acceleration);
+                        break;
+                }
+            }
+
+            stop(direction) {
+                switch(direction) {
+                    case 'left':
+                    case 'right':
+                        this.currentSpeedX *= this.friction;
+                        if (Math.abs(this.currentSpeedX) < 0.01) this.currentSpeedX = 0;
+                        break;
+                    case 'up':
+                    case 'down':
+                        this.currentSpeedY *= this.friction;
+                        if (Math.abs(this.currentSpeedY) < 0.01) this.currentSpeedY = 0;
+                        break;
+                }
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.position.x, this.position.y);
+
+                // Мигание при неуязвимости
+                if (this.invulnerableTimer > 0 && Math.floor(this.invulnerableTimer / 100) % 2 === 0) {
+                    ctx.globalAlpha = 0.5;
+                }
+
+                // Основной корпус
+                ctx.fillStyle = '#00aaff';
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size / 2);
+                ctx.lineTo(-this.size / 2, this.size / 2);
+                ctx.lineTo(this.size / 2, this.size / 2);
+                ctx.closePath();
+                ctx.fill();
+
+                // Кабина
+                ctx.fillStyle = '#00eeff';
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size / 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Двигатели
+                ctx.fillStyle = '#ff5500';
+                ctx.fillRect(-this.size / 3, this.size / 2, this.size / 4, this.size / 3);
+                ctx.fillRect(this.size / 6, this.size / 2, this.size / 4, this.size / 3);
+
+                // Щит
+                if (this.shield) {
+                    ctx.strokeStyle = 'rgba(0, 255, 255, 0.7)';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size * 0.7, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+
+                // Неуязвимость
+                if (this.invincible) {
+                    ctx.strokeStyle = 'rgba(255, 215, 0, 0.5)';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size * 0.8, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+            }
+
+            shoot() {
+                if (this.shootCooldown <= 0) {
+                    this.shootCooldown = this.shootDelay;
+                    const bulletPos = new Vector(this.position.x, this.position.y - this.size/2);
+                    const bulletVel = new Vector(0, -7); // Увеличена скорость пуль
+                    return new Bullet(bulletPos, bulletVel, 10); // Увеличен размер пуль
+                }
+                return null;
+            }
         }
 
-        // По умолчанию показываем страницу валюты
-        showPage('currency-page');
+        class Asteroid extends GameObject {
+            constructor(position, velocity, size) {
+                super(position, velocity, size);
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+                this.vertices = [];
+                this.generateShape();
+            }
+
+            generateShape() {
+                const count = 8;
+                for (let i = 0; i < count; i++) {
+                    const angle = (i / count) * Math.PI * 2;
+                    const distance = this.size / 2 * (0.7 + Math.random() * 0.3);
+                    this.vertices.push({
+                        x: Math.cos(angle) * distance,
+                        y: Math.sin(angle) * distance
+                    });
+                }
+            }
+
+            update(deltaTime) {
+                super.update(deltaTime);
+                this.rotation += this.rotationSpeed * deltaTime;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.position.x, this.position.y);
+                ctx.rotate(this.rotation);
+
+                ctx.fillStyle = '#888888';
+                ctx.beginPath();
+                for (let i = 0; i < this.vertices.length; i++) {
+                    const v = this.vertices[i];
+                    if (i === 0) ctx.moveTo(v.x, v.y);
+                    else ctx.lineTo(v.x, v.y);
+                }
+                ctx.closePath();
+                ctx.fill();
+
+                // Добавляем детали
+                ctx.fillStyle = '#666666';
+                ctx.beginPath();
+                ctx.arc(this.size * 0.2, -this.size * 0.2, this.size * 0.1, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(-this.size * 0.3, this.size * 0.1, this.size * 0.15, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        class Bullet extends GameObject {
+            constructor(position, velocity, size) {
+                super(position, velocity, size);
+                this.lifeTime = 2000;
+            }
+
+            update(deltaTime) {
+                super.update(deltaTime);
+                this.lifeTime -= deltaTime;
+                this.active = this.lifeTime > 0;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.position.x, this.position.y);
+
+                // Лазерный выстрел - увеличен и сделан ярче
+                const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
+                gradient.addColorStop(0, '#00eeff');
+                gradient.addColorStop(0.5, '#00aaff');
+                gradient.addColorStop(1, 'transparent');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Добавляем свечение
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#00eeff';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                ctx.restore();
+            }
+        }
+
+        class Buff extends GameObject {
+            constructor(position, type) {
+                const velocity = new Vector(0, 0.5);  // Уменьшена скорость падения бафов
+                super(position, velocity, 20);
+                this.type = type;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.position.x, this.position.y);
+
+                let color, symbol;
+                switch(this.type) {
+                    case BUFF_TYPES.SHIELD:
+                        color = 'rgba(0, 200, 255, 0.8)';
+                        symbol = '🛡️';
+                        break;
+                    case BUFF_TYPES.RAPID_FIRE:
+                        color = 'rgba(255, 100, 0, 0.8)';
+                        symbol = '🔥';
+                        break;
+                    case BUFF_TYPES.INVINCIBLE:
+                        color = 'rgba(255, 215, 0, 0.8)';
+                        symbol = '💫';
+                        break;
+                }
+
+                // Внешний круг
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Символ
+                ctx.font = `${this.size * 1.2}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = 'white';
+                ctx.fillText(symbol, 0, 0);
+
+                // Свечение
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                ctx.restore();
+            }
+        }
+
+        class Particle extends GameObject {
+            constructor(position, velocity, size, color, lifeTime) {
+                super(position, velocity, size);
+                this.color = color;
+                this.lifeTime = lifeTime;
+                this.maxLife = lifeTime;
+            }
+
+            update(deltaTime) {
+                super.update(deltaTime);
+                this.lifeTime -= deltaTime;
+                this.active = this.lifeTime > 0;
+            }
+
+            draw(ctx) {
+                const alpha = this.lifeTime / this.maxLife;
+                ctx.save();
+                ctx.translate(this.position.x, this.position.y);
+
+                ctx.fillStyle = `rgba(${this.color}, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        // Основной класс игры
+        class SpaceDefenderGame {
+            constructor() {
+                this.canvas = document.getElementById('game-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.state = GAME_STATE.MENU;
+                this.score = 0;
+                this.bestScore = localStorage.getItem('spaceDefenderBestScore') || 0;
+                this.player = null;
+                this.asteroids = [];
+                this.bullets = [];
+                this.buffs = [];
+                this.particles = [];
+                this.asteroidSpawnTimer = 0;
+                this.buffSpawnTimer = 0;
+                this.lastTime = 0;
+
+                // Настройка размеров
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
+
+                // Управление
+                this.setupControls();
+
+                // Обновление лучшего счета в интерфейсе
+                this.updateBestScoreDisplay();
+
+                // Запуск игрового цикла
+                requestAnimationFrame((time) => this.gameLoop(time));
+            }
+
+            resizeCanvas() {
+                const container = document.getElementById('game-container');
+                this.canvas.width = container.clientWidth;
+                this.canvas.height = container.clientHeight;
+            }
+
+            updateBestScoreDisplay() {
+                document.getElementById('best-score').textContent = this.bestScore;
+                document.getElementById('menu-best-score').textContent = this.bestScore;
+                document.getElementById('best-score-display').textContent = `Лучший результат: ${this.bestScore}`;
+            }
+
+            updateBuffIndicators() {
+                if (!this.player) return;
+
+                const indicators = document.querySelectorAll('.buff-indicator');
+                indicators.forEach(indicator => {
+                    const type = indicator.dataset.type;
+                    if (this.player.activeBuffs[type]) {
+                        indicator.classList.add('buff-active');
+                    } else {
+                        indicator.classList.remove('buff-active');
+                    }
+                });
+            }
+
+            updateLivesDisplay() {
+                const heartsContainer = document.getElementById('hearts');
+                const hearts = heartsContainer.querySelectorAll('.heart');
+
+                // Обновляем отображение сердечек
+                for (let i = 0; i < hearts.length; i++) {
+                    if (i < this.player.lives) {
+                        hearts[i].classList.remove('lost', 'heart-animate');
+                    } else {
+                        // Добавляем анимацию только если сердечко еще не было потеряно
+                        if (!hearts[i].classList.contains('lost')) {
+                            hearts[i].classList.add('heart-animate');
+                            // Убираем класс анимации после завершения
+                            setTimeout(() => {
+                                hearts[i].classList.remove('heart-animate');
+                            }, 500);
+                        }
+                        hearts[i].classList.add('lost');
+                    }
+                }
+            }
+
+            setupControls() {
+                // Кнопки на экране
+                document.getElementById('start-btn').addEventListener('click', () => this.startGame());
+                document.getElementById('restart-btn').addEventListener('click', () => this.startGame());
+                document.getElementById('resume-btn').addEventListener('click', () => this.resumeGame());
+                document.getElementById('menu-btn').addEventListener('click', () => this.showMenu());
+                document.getElementById('menu-btn-2').addEventListener('click', () => this.showMenu());
+
+                // Кнопки управления
+                const leftBtn = document.getElementById('left-btn');
+                const rightBtn = document.getElementById('right-btn');
+                const upBtn = document.getElementById('up-btn');
+                const downBtn = document.getElementById('down-btn');
+                const shootBtn = document.getElementById('shoot-btn');
+
+                // Управление на ПК
+                const keys = {};
+
+                document.addEventListener('keydown', (e) => {
+                    if (this.state === GAME_STATE.PLAYING && this.player) {
+                        keys[e.key] = true;
+
+                        if (e.key === 'ArrowLeft') this.player.move('left');
+                        if (e.key === 'ArrowRight') this.player.move('right');
+                        if (e.key === 'ArrowUp') this.player.move('up');
+                        if (e.key === 'ArrowDown') this.player.move('down');
+                        if (e.key === ' ' || e.key === 'z') this.shoot();
+                        if (e.key === 'Escape') this.pauseGame();
+                    }
+                });
+
+                document.addEventListener('keyup', (e) => {
+                    keys[e.key] = false;
+
+                    if (this.player) {
+                        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                            this.player.stop('horizontal');
+                        }
+                        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                            this.player.stop('vertical');
+                        }
+                    }
+                });
+
+                // Управление на сенсорных устройствах
+                const addTouchControl = (element, direction) => {
+                    element.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        if (this.player) this.player.move(direction);
+                    });
+
+                    element.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        if (this.player) {
+                            if (direction === 'left' || direction === 'right') {
+                                this.player.stop('horizontal');
+                            } else {
+                                this.player.stop('vertical');
+                            }
+                        }
+                    });
+                };
+
+                addTouchControl(leftBtn, 'left');
+                addTouchControl(rightBtn, 'right');
+                addTouchControl(upBtn, 'up');
+                addTouchControl(downBtn, 'down');
+
+                shootBtn.addEventListener('click', () => this.shoot());
+                shootBtn.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    this.shoot();
+                });
+
+                // Пауза при переключении вкладок
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden' && this.state === GAME_STATE.PLAYING) {
+                        this.pauseGame();
+                    }
+                });
+            }
+
+            startGame() {
+                this.state = GAME_STATE.PLAYING;
+                this.score = 0;
+                this.player = new PlayerShip(this);
+                this.asteroids = [];
+                this.bullets = [];
+                this.buffs = [];
+                this.particles = [];
+
+                // Обновление интерфейса
+                document.getElementById('menu-screen').style.display = 'none';
+                document.getElementById('game-over-screen').style.display = 'none';
+                document.getElementById('pause-screen').style.display = 'none';
+                document.getElementById('hud').style.display = 'flex';
+                document.getElementById('controls').style.display = 'flex';
+
+                // Обновление HUD
+                document.getElementById('score').textContent = this.score;
+                this.updateLivesDisplay();
+                this.updateBuffIndicators();
+            }
+
+            pauseGame() {
+                if (this.state === GAME_STATE.PLAYING) {
+                    this.state = GAME_STATE.PAUSED;
+                    document.getElementById('pause-screen').style.display = 'flex';
+                }
+            }
+
+            resumeGame() {
+                if (this.state === GAME_STATE.PAUSED) {
+                    this.state = GAME_STATE.PLAYING;
+                    document.getElementById('pause-screen').style.display = 'none';
+                }
+            }
+
+            gameOver() {
+                // Проверка и сохранение лучшего результата
+                if (this.score > this.bestScore) {
+                    this.bestScore = this.score;
+                    localStorage.setItem('spaceDefenderBestScore', this.bestScore);
+                }
+                this.updateBestScoreDisplay();
+
+                this.state = GAME_STATE.GAME_OVER;
+                document.getElementById('game-over-screen').style.display = 'flex';
+                document.getElementById('final-score').textContent = `Ваш счет: ${this.score}`;
+                document.getElementById('hud').style.display = 'none';
+                document.getElementById('controls').style.display = 'none';
+            }
+
+            showMenu() {
+                this.state = GAME_STATE.MENU;
+                document.getElementById('menu-screen').style.display = 'flex';
+                document.getElementById('game-over-screen').style.display = 'none';
+                document.getElementById('pause-screen').style.display = 'none';
+                document.getElementById('hud').style.display = 'none';
+                document.getElementById('controls').style.display = 'none';
+            }
+
+            shoot() {
+                if (this.state === GAME_STATE.PLAYING && this.player) {
+                    const bullet = this.player.shoot();
+                    if (bullet) {
+                        this.bullets.push(bullet);
+                    }
+                }
+            }
+
+            spawnAsteroid() {
+                // Случайное положение сверху экрана
+                const x = Math.random() * this.canvas.width;
+                const y = -50;
+
+                // Случайный размер
+                const size = 30 + Math.random() * 40; // Увеличиваем средний размер астероидов
+
+                // Случайная скорость (значительно уменьшена)
+                const speed = 0.1 + Math.random() * 0.6;  // Очень медленные астероиды
+                const angle = Math.PI/2 + (Math.random() - 0.5) * Math.PI/4;
+                const velocity = new Vector(
+                    Math.cos(angle) * speed,
+                    Math.sin(angle) * speed
+                );
+
+                this.asteroids.push(new Asteroid(new Vector(x, y), velocity, size));
+            }
+
+            spawnBuff(position) {
+                const buffTypes = Object.values(BUFF_TYPES);
+                const type = buffTypes[Math.floor(Math.random() * buffTypes.length)];
+                this.buffs.push(new Buff(position, type));
+            }
+
+            createExplosion(position, count, size, color) {
+                for (let i = 0; i < count; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 1 + Math.random() * 3;
+                    const velocity = new Vector(
+                        Math.cos(angle) * speed,
+                        Math.sin(angle) * speed
+                    );
+                    const particleSize = size * (0.3 + Math.random() * 0.7);
+                    const lifeTime = 500 + Math.random() * 1000;
+
+                    this.particles.push(new Particle(
+                        new Vector(position.x, position.y),
+                        velocity,
+                        particleSize,
+                        color,
+                        lifeTime
+                    ));
+                }
+            }
+
+            update(deltaTime) {
+                if (this.state !== GAME_STATE.PLAYING) return;
+
+                // Обновление игрока
+                if (this.player) {
+                    this.player.update(deltaTime);
+
+                    // Проверка жизней
+                    if (this.player.lives <= 0) {
+                        this.gameOver();
+                        return;
+                    }
+                }
+
+                // Обновление астероидов
+                this.asteroids.forEach(asteroid => asteroid.update(deltaTime));
+                this.asteroids = this.asteroids.filter(a => a.active);
+
+                // Обновление пуль
+                this.bullets.forEach(bullet => bullet.update(deltaTime));
+                this.bullets = this.bullets.filter(b => b.active);
+
+                // Обновление бафов
+                this.buffs.forEach(buff => buff.update(deltaTime));
+                this.buffs = this.buffs.filter(b => b.active);
+
+                // Обновление частиц
+                this.particles.forEach(particle => particle.update(deltaTime));
+                this.particles = this.particles.filter(p => p.active);
+
+                // Спавн астероидов - чаще, но медленнее
+                this.asteroidSpawnTimer += deltaTime;
+                if (this.asteroidSpawnTimer > 1000) { // Больше астероидов
+                    this.spawnAsteroid();
+                    this.asteroidSpawnTimer = 0;
+                }
+
+                // Спавн бафов
+                this.buffSpawnTimer += deltaTime;
+                if (this.buffSpawnTimer > 10000) { // Чаще появляются бафы
+                    const x = 50 + Math.random() * (this.canvas.width - 100);
+                    this.spawnBuff(new Vector(x, -20));
+                    this.buffSpawnTimer = 0;
+                }
+
+                // Коллизии пуль с астероидами
+                for (let i = this.bullets.length - 1; i >= 0; i--) {
+                    for (let j = this.asteroids.length - 1; j >= 0; j--) {
+                        if (this.bullets[i].collidesWith(this.asteroids[j])) {
+                            this.bullets[i].active = false;
+                            this.asteroids[j].active = false;
+
+                            this.score += 10;
+                            document.getElementById('score').textContent = this.score;
+
+                            this.createExplosion(
+                                this.asteroids[j].position,
+                                20, // Больше частиц при взрыве
+                                6, // Больший размер частиц
+                                '200,200,255'
+                            );
+                        }
+                    }
+                }
+
+                // Коллизии игрока с астероидами
+                if (this.player) {
+                    for (let i = this.asteroids.length - 1; i >= 0; i--) {
+                        if (this.player.collidesWith(this.asteroids[i])) {
+                            this.asteroids[i].active = false;
+
+                            if (this.player.takeDamage()) {
+                                this.updateLivesDisplay();
+                                this.createExplosion(
+                                    this.player.position,
+                                    25, // Больше частиц
+                                    7, // Больший размер
+                                    '255,100,100'
+                                );
+
+                                if (this.player.lives <= 0) {
+                                    this.gameOver();
+                                }
+                            }
+
+                            this.createExplosion(
+                                this.asteroids[i].position,
+                                20, // Больше частиц
+                                6, // Больший размер
+                                '200,200,255'
+                            );
+                        }
+                    }
+                }
+
+                // Коллизии с бафами
+                if (this.player) {
+                    for (let i = this.buffs.length - 1; i >= 0; i--) {
+                        if (this.player.collidesWith(this.buffs[i])) {
+                            this.buffs[i].active = false;
+                            this.player.applyBuff(this.buffs[i].type, 10000);
+
+                            this.createExplosion(
+                                this.buffs[i].position,
+                                15, // Больше частиц
+                                4, // Больший размер
+                                '100,255,100'
+                            );
+                        }
+                    }
+                }
+            }
+
+            draw() {
+                const ctx = this.ctx;
+                const canvas = this.canvas;
+
+                // Очистка холста
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Рисование фона (космос)
+                ctx.fillStyle = '#000011';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Рисование звезд
+                ctx.fillStyle = '#ffffff';
+                for (let i = 0; i < 100; i++) {
+                    const x = (i * 31) % canvas.width;
+                    const y = (i * 17) % canvas.height;
+                    const size = (i % 3) * 0.5 + 0.5;
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                // Рисование игровых объектов
+                this.asteroids.forEach(asteroid => asteroid.draw(ctx));
+                this.bullets.forEach(bullet => bullet.draw(ctx));
+                this.buffs.forEach(buff => buff.draw(ctx));
+                this.particles.forEach(particle => particle.draw(ctx));
+
+                if (this.player) {
+                    this.player.draw(ctx);
+                }
+
+                // Рисование HUD поверх всего
+                if (this.state === GAME_STATE.PLAYING) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                    ctx.fillRect(10, 10, 150, 60);
+
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = '18px Orbitron';
+                    ctx.fillText(`Очки: ${this.score}`, 20, 40);
+
+                    // Рисование сердечек на холсте
+                    const heartSize = 24;
+                    const heartSpacing = 5;
+                    const startX = 20;
+                    const yPos = 65;
+
+                    for (let i = 0; i < 3; i++) {
+                        ctx.fillStyle = i < this.player.lives ? '#ff5555' : '#555555';
+                        ctx.font = `${heartSize}px Arial`;
+                        ctx.fillText('❤️', startX + i * (heartSize + heartSpacing), yPos);
+                    }
+                }
+            }
+
+            gameLoop(time) {
+                const deltaTime = time - this.lastTime || 16;
+                this.lastTime = time;
+
+                this.update(deltaTime);
+                this.draw();
+
+                requestAnimationFrame((t) => this.gameLoop(t));
+            }
+        }
+
+        // Запуск игры при загрузке страницы
+        window.onload = () => {
+            new SpaceDefenderGame();
+        };
     </script>
 </body>
 </html>
